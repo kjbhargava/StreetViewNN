@@ -64,6 +64,7 @@ x_train[1]
 x_train_orig = []
 x_train_arr = []
 
+#transform 10000 images into the train data
 stopper = 0
 for pics in x_train:
     if stopper == 10000:
@@ -114,7 +115,7 @@ x_test[1]
 x_test_orig = []
 x_test_arr = []
 
-
+#pull test data, convert to grayscale and store into a test array
 for pics in x_test:
     pic = cv2.imread(testPath+pics)
     x_test_orig.append(pic)
@@ -280,9 +281,6 @@ y_train
 
 type(y_train[1])
 
-#need to map '10' to '0' or get rid of all '10's entirely
-#y_train = np.unique(y_train)
-
 y_train = to_categorical(y_train, 10)
 y_test = to_categorical(y_test, 10)
 
@@ -302,9 +300,7 @@ model.add(Dense(1024, activation = 'relu'))
 model.add(Dense(10, activation = 'softmax'))
 
 print("[INFO] training network...")
-#sgd = SGD(lr = .01, decay = 1e-6, momentum = .9, nesterov = True)
 model.compile(loss = 'categorical_crossentropy', optimizer = 'rmsprop',
-#model.compile(loss = 'sparse_categorical_crossentropy', optimizer = sgd,
              metrics = ['accuracy'])
 
 #fit model to the data
